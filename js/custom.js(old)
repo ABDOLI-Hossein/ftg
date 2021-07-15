@@ -1,0 +1,358 @@
+var url = window.location.href;
+$('#modalvideo').on('shown.bs.modal', function () {
+    $('.autoplay-item')[0].play();
+})
+
+
+$("#modalvideo .close").click(
+    $(function(){
+        $('#modalvideo').modal({
+            show: false
+        }).on('hidden.bs.modal', function(){
+            $(this).find('video')[0].pause();
+        });
+    })
+)
+
+
+
+
+
+
+$('.readmorebutton').click(function(e){
+    if ($(window).width() <=414 ) {
+        var id=$(this).attr('data-id');
+        console.log(id)
+        $('#card'+id).parents().find('.readmoremobile').removeClass('d-none');
+
+    }
+    // $('.readmore').addClass('display-none');
+    //
+    // console.log($(this).parents().find('.whySection'));
+    // var parent=$(this).parents().find('.whySection');
+    // parent.find('.readmore').removeClass('display-none');
+    // parent.find('.readmore').removeClass('d-none');
+    // parent.find('.readmore').addClass('display-why-section');
+
+});
+$('.closebtn').click(function (e) {
+    $('.readmoremobile').addClass('d-none');
+
+})
+
+
+var story = document.querySelectorAll(".story");
+var coachcover = document.querySelectorAll(".coach-cover")
+var closebtn3 = document.querySelectorAll(".closebtn3")
+
+$('.story').click(function (e) {
+e.stopPropagation();
+e.preventDefault();
+var id= $('.owl-item.active .coach-items').attr('data-id');
+$('#cover'+id).removeClass('d-none');
+})
+$('.closebtn3').click(function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+    var id= $('.owl-item.active .coach-items').attr('data-id');
+    console.log(id);
+    $('#cover'+id).addClass('d-none');
+})
+
+
+
+
+
+var accordion = document.querySelectorAll(".readmore");
+var closebtn = document.querySelectorAll(".closebtn")
+for (var i = 0; i < closebtn.length; i++) {
+    closebtn[i].addEventListener('click', closeBtn, false);
+}
+function closeBtn() {
+    for (var i=0;i<accordion.length;i++)
+        accordion[i].classList.remove("show")
+}
+
+
+
+
+
+
+$(document).ready(function () {
+    $("#carousel3").owlCarousel();
+});
+$('#carousel3').owlCarousel({
+    loop: true,
+    margin: 20,
+    nav: true,
+    dots: false,
+    responsive: {
+        0: {
+            items: 1
+        },
+        600: {
+            items: 1
+        },
+        1000: {
+            items: 1
+        }
+    }
+})
+
+
+
+
+function hoverFunction(){
+
+  var img = this.getElementsByClassName("img-fer");
+  var urlpath = url+"wp-content/themes/FTG/images/";
+  var hoverimg = img[0].dataset.imghover;
+  var srctoset = urlpath + hoverimg;
+  img[0].setAttribute("src",srctoset)
+}
+
+function nonhoverFunction() {
+
+  var img = this.getElementsByClassName("img-fer");
+  var urlpath = url+"wp-content/themes/FTG/images/";
+  var hoverimg = img[0].dataset.imgnonhover;
+  var srctoset = urlpath + hoverimg;
+  img[0].setAttribute("src",srctoset)
+}
+
+var  imgdiv = document.querySelectorAll(".section1-card")
+for (var i=0;i<imgdiv.length;i++){
+    imgdiv[i].addEventListener("mouseover",hoverFunction,false)
+    imgdiv[i].addEventListener("mouseout",nonhoverFunction,false)
+}
+
+
+function openNav() {
+    // document.getElementById("top-menu").style.width = "300px";
+    document.getElementById("navbarNav").style.width = "320px";
+
+}
+
+function closeNav() {
+        // document.getElementById("top-menu").style.width = "0";
+    document.getElementById("navbarNav").style.width = "0";
+
+}
+var a = document.querySelector("#menu-item-29 a");
+// a.setAttribute("onclick","closeNav()");
+// a.setAttribute("href","javascript:void(0)")
+
+
+
+
+var quizform = document.querySelector("#quiz-form2")
+if(quizform){
+	var button = document.querySelectorAll(".label");
+    var quiz = document.querySelectorAll(".quiz-form");
+    var emailuser;
+    var weight;
+
+    button[0].onclick = function () {
+        quiz[0].classList.add("d-none")
+        quiz[1].classList.remove("d-none");
+        emailuser = document.querySelector(".email").value;
+    }
+
+    //ehsan
+    var results = [];
+
+    function myFunction() {
+        var questionNumber = parseInt(this.dataset.qnumber);
+        var questionValue = parseInt(this.dataset.value);
+        results[questionNumber - 1] = questionValue + 1;
+
+        for (var i = 0; i < 13; i++) {
+            quiz[i].classList.add("d-none");
+        }
+
+        quiz[questionNumber + 1].classList.remove("d-none");
+
+    }
+
+
+    var elements = document.getElementsByClassName("question");
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].addEventListener('click', myFunction, false);
+    }
+
+
+    //end ehsan
+
+    //back button
+
+    function backFunction() {
+        var bNumber = parseInt(this.dataset.bnumber)
+        for (var i = 2; i < 13; i++) {
+            quiz[i].classList.add("d-none");
+
+
+        }
+    if (bNumber){
+        quiz[bNumber - 1].classList.remove("d-none")
+    }else {
+        alert("ljhfljasdjsa")
+    }
+
+
+    }
+
+    var myButton = document.querySelectorAll(".back-button")
+    for (var i=0;i<myButton.length;i++){
+        myButton[i].addEventListener("click",backFunction,false);
+    }
+
+
+
+
+    //end back button
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'radar',
+
+        data: {
+            labels: ['Nutration', 'Hydration', 'Exercise', 'Sleep', 'Supplements', 'Stress', 'Mood', 'Partner Connection', 'Environment', 'Weight', 'Ovulation', 'Partner Lifestyle'],
+            datasets: [{
+                pointStyle: 'circle',
+                backgroundColor: '#ffffff',
+                borderColor: '#007bff',
+                data: results,
+
+            }]
+        },
+
+        // Configuration options go here
+        options: {
+
+        }
+    });
+
+
+}
+
+
+
+
+
+
+$(document).ready(function () {
+    $("#carousel1").owlCarousel();
+});
+$('#carousel1').owlCarousel({
+    loop: true,
+    margin: 10,
+    nav: true,
+    responsive: {
+        0: {
+            items: 1
+        },
+        600: {
+            items: 1
+        },
+        1000: {
+            items: 1
+        }
+    }
+})
+
+
+$(document).ready(function () {
+    $("#carousel2").owlCarousel();
+});
+$('#carousel2').owlCarousel({
+    loop: true,
+    margin: 20,
+    nav: false,
+    responsive: {
+        0: {
+            items: 1
+        },
+        600: {
+            items: 1
+        },
+        1000: {
+            items: 1
+        }
+    }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ jQuery(window).on("scroll", function() {
+        if(jQuery(window).scrollTop() > 50) {
+            jQuery("#header2").addClass("scroll-d");
+            jQuery(".menu-item a").addClass("color-black");
+			jQuery(".d-packages").addClass("d-none");
+            jQuery(".logo").attr("src","https://ftgnew.wpengine.com/wp-content/themes/FTG/images/Group%207567.svg");
+        } else {
+            jQuery("#header2").removeClass("scroll-d");
+            jQuery(".menu-item a").removeClass("color-black");
+			jQuery(".d-packages").removeClass("d-none");
+            jQuery(".logo").attr("src","https://ftgnew.wpengine.com/wp-content/themes/FTG/images/Fertilligence-Logo-Full-white.png");
+        }
+    });
+
+
+ jQuery(document).ready(function(){
+        jQuery(".collapse").on('show.bs.collapse', function(){
+            jQuery(this).prev(".card-header").find(".fa").removeClass("fa-plus").addClass("fa-minus");
+        }).on('hide.bs.collapse', function(){
+            jQuery(this).prev(".card-header").find(".fa").removeClass("fa-minus").addClass("fa-plus");
+        });
+    });
+
+
+
+
+var poster = document.querySelectorAll('.video-poster');
+var video = document.querySelectorAll('.embed-responsive-item');
+poster[0].onclick = function () {
+    poster[0].style.display = 'none';
+    video[0].play();
+}
+poster[1].onclick = function () {
+    poster[1].style.display = 'none';
+    video[1].play();
+}
+poster[2].onclick = function () {
+    poster[2].style.display = 'none';
+    video[2].play();
+}
+poster[3].onclick = function () {
+    poster[3].style.display = 'none';
+    video[3].play();
+}
+poster[4].onclick = function () {
+    poster[4].style.display = 'none';
+    video[4].play();
+}
+poster[5].onclick = function () {
+    poster[5].style.display = 'none';
+    video[5].play();
+}
+
+
+
+
+
+
+
+
+
+
